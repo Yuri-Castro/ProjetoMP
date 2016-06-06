@@ -19,6 +19,8 @@ typedef struct Vertex
 	float distancia;
 	int visitado;
 	char nome[TAM_MAX]; /* Nome do vértice; */
+	/**TODO
+	alterar de nome para TpTarefa*/
 	int id; /* Identificacao do vértice; */
 }TpVertex;
 
