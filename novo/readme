@@ -1,0 +1,17 @@
+para compilar abra o diretorio no local do arquivo leitor e digite make
+para executar digite make run
+
+
+
+/*TODO
+	Modularizar o codigo.
+	Ajustar o makefile para ser mais flexivel
+	Funçoes para adicionar tarefa(no arquivo e no grafo)
+	Funçoes para remover tarefa(do arquivo e do grafo)
+	Funçoes para editar tarefas(no arquivo e no grafo)
+	Verificador de coezao.
+	Fazer textes usando gteste
+
+	E ajustar o codigo para os requisitos.(comentarios, asserts, etc)
+
+*/
