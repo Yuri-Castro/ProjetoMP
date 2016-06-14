@@ -1,5 +1,8 @@
-leitor:
-	gcc -g -ansi -std=c99 -o leitor leitor.c 
+teste: leitor.o
+	gcc -ansi -std=c99 -o teste teste.c leitor.o -I.
+
+leitor.o:	
+	gcc -c -std=c99 leitor.c
 
 run:
 	./leitor

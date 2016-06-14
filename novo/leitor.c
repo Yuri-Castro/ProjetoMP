@@ -200,15 +200,3 @@ void salvarEmArquivo(TpGrafo* grafo){
 }
 
 
-int main(){
-
-	TpGrafo* grafo;
-	grafo = inicializa();
-	
-	grafo = leitor(grafo);
-
-	imprimeGrafo(grafo);
-
-	salvarEmArquivo(grafo);
-	
-}
