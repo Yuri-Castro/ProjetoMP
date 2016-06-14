@@ -29,18 +29,28 @@ typedef struct Grafo {
 	int tam_vetor_lista;	
 }TpGrafo;
 
-TpGrafo* inicializa(TpGrafo* grafo);
+//TODO editar tarefa
+
+TpGrafo* inicializa();
 TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa);
-TpGrafo* leitor(TpGrafo *grafo, FILE* file);
+TpGrafo* leitor(TpGrafo *grafo);
 void imprimeTarefa(TpTarefa* tarefa);
 void imprimeGrafo(TpGrafo* grafo);
+TpGrafo* removeTarefa(TpGrafo* grafo, int id);
+void salvaTarefa(FILE* file, TpTarefa* tarefa);
+void salvarEmArquivo(TpGrafo* Grafo);
 
-TpGrafo* inicializa(TpGrafo* grafo){
+TpGrafo* inicializa(){
+	TpGrafo* grafo;
+	grafo = (TpGrafo*)malloc(sizeof(TpGrafo));
+
 	grafo->vertices = NULL;
 	//grafo->adjacencia = NULL;
 	grafo->numero_vertices = 0;
 	//grafo.numero_origens = 0;
 	grafo->tam_vetor_lista = 0;
+
+	return grafo;
 }
 
 TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
@@ -72,7 +82,10 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 /**
 	TODO mudar o dado da estrutura grafo para ser um TpTarefa
 */
-TpGrafo* leitor(TpGrafo *grafo, FILE* file){
+TpGrafo* leitor(TpGrafo *grafo){
+
+	FILE* file = fopen("tarefas", "r+");
+
 	while(1){
 		TpTarefa* novo;
 		novo = (TpTarefa*)malloc(sizeof(TpTarefa));
@@ -110,6 +123,8 @@ TpGrafo* leitor(TpGrafo *grafo, FILE* file){
 		grafo = adicionaVertice(grafo, novo);
 	}
 
+	fclose(file);
+
 	return grafo;
 
 }
@@ -137,24 +152,63 @@ void imprimeGrafo(TpGrafo* grafo){
 	}
 }
 
-/*TODO
-	Modularizar o codigo.
-	Ajustar o makefile para ser mais flexivel
-	Funçoes para adicionar tarefa(no arquivo e no grafo)
-	Funçoes para remover tarefa(do arquivo e do grafo)
-	Funçoes para editar tarefas(no arquivo e no grafo)
-	Verificador de coezao.
-	Fazer textes usando gteste
+//TODO pode ser feito uma forma de identificar se a tarefa foi excluida.
+TpGrafo* removeTarefa(TpGrafo* grafo, int id){
 
-*/
+	if(grafo->vertices != NULL){
+		TpVertice* aux = grafo->vertices;
+
+		if(aux->tarefa->id_tarefa == id){//tarefa a ser removida é a primeira
+			grafo->vertices = aux->prox;
+			free(aux);
+		}else{
+			for(aux = grafo->vertices; aux->prox != NULL; aux = aux->prox){
+				if(aux->prox->tarefa->id_tarefa == id){
+					aux->prox = aux->prox->prox;
+					free(aux->prox);
+					break;
+				}
+			}
+		}
+	}
+
+	return grafo;
+}
+
+void salvaTarefa(FILE* file, TpTarefa* tarefa){
+	fprintf(file, "%d '%s' %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, tarefa->duracao_tarefa,
+									tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
+	for (int i = 0; i < tarefa->pre_requisitos_tarefa; ++i){
+		fprintf(file, " %d", tarefa->requisitos[i]);
+	}
+	fprintf(file, "\n");	
+}
+
+void salvarEmArquivo(TpGrafo* grafo){
+
+	FILE* file = fopen("trf2", "w");
+
+	if((grafo->vertices == NULL) || (file == NULL)){
+	
+	}else{
+		for(TpVertice* aux = grafo->vertices; aux!= NULL; aux = aux->prox){
+			salvaTarefa(file, aux->tarefa);
+		}
+	}
+
+	fclose(file);
+}
 
 
 int main(){
+
 	TpGrafo* grafo;
-	grafo = (TpGrafo*)malloc(sizeof(TpGrafo));
-	FILE* file = fopen("tarefas", "r+");
-	grafo = inicializa(grafo);
-	grafo = leitor(grafo, file);
+	grafo = inicializa();
+	
+	grafo = leitor(grafo);
+
 	imprimeGrafo(grafo);
-	fclose(file);
+
+	salvarEmArquivo(grafo);
+	
 }
