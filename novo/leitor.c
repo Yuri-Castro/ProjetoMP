@@ -1,36 +1,12 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "leitor.h"
 
-
-typedef struct Tarefa{
-	int id_tarefa;
-	char nome_tarefa[100];
-	int tarefa_executada;
-	int duracao_tarefa;
-	int inicio_min_tarefa;
-	int pre_requisitos_tarefa;
-	int *requisitos;
-	//int visitado;
-	//int id;
-}TpTarefa;
-
-typedef struct vertice
-{
-	TpTarefa* tarefa;
-	struct vertice *prox;
-}TpVertice;
-
-typedef struct Grafo {
-	TpVertice* vertices;
-	//TpListaDupla *adjacencia;
-	int numero_vertices;
-	//int numero_origens;
-	int tam_vetor_lista;	
-}TpGrafo;
 
 //TODO editar tarefa
-
+/*
 TpGrafo* inicializa();
 TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa);
 TpGrafo* leitor(TpGrafo *grafo);
@@ -39,6 +15,11 @@ void imprimeGrafo(TpGrafo* grafo);
 TpGrafo* removeTarefa(TpGrafo* grafo, int id);
 void salvaTarefa(FILE* file, TpTarefa* tarefa);
 void salvarEmArquivo(TpGrafo* Grafo);
+
+*/
+
+
+
 
 TpGrafo* inicializa(){
 	TpGrafo* grafo;
@@ -129,28 +110,6 @@ TpGrafo* leitor(TpGrafo *grafo){
 
 }
 
-void imprimeTarefa(TpTarefa* tarefa){
-	printf("%d '%s' %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, tarefa->duracao_tarefa,
-									tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
-	for (int i = 0; i < tarefa->pre_requisitos_tarefa; ++i){
-		printf(" %d", tarefa->requisitos[i]);
-	}
-	printf("\n");
-
-}
-
-void imprimeGrafo(TpGrafo* grafo){
-	/* Funçao provisoria, arrumar depois*/
-
-	if(grafo->vertices == NULL){
-	}else{
-		TpVertice* aux = grafo->vertices;
-		while(aux!= NULL){	
-			imprimeTarefa(aux->tarefa);
-			aux = aux->prox;
-		}
-	}
-}
 
 //TODO pode ser feito uma forma de identificar se a tarefa foi excluida.
 TpGrafo* removeTarefa(TpGrafo* grafo, int id){
@@ -198,5 +157,6 @@ void salvarEmArquivo(TpGrafo* grafo){
 
 	fclose(file);
 }
+
 
 

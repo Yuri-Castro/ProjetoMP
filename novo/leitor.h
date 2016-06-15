@@ -1,5 +1,7 @@
 
-typedef struct Tarefa{
+
+
+struct Tarefa{
 	int id_tarefa;
 	char nome_tarefa[100];
 	int tarefa_executada;
@@ -9,29 +11,37 @@ typedef struct Tarefa{
 	int *requisitos;
 	//int visitado;
 	//int id;
-}TpTarefa;
+};
 
-typedef struct vertice
-{
+typedef struct Tarefa TpTarefa;
+
+struct vertice{
 	TpTarefa* tarefa;
 	struct vertice *prox;
-}TpVertice;
+};
 
-typedef struct Grafo {
+
+typedef struct vertice TpVertice;
+
+struct Grafo {
 	TpVertice* vertices;
 	//TpListaDupla *adjacencia;
 	int numero_vertices;
 	//int numero_origens;
 	int tam_vetor_lista;	
-}TpGrafo;
+};
 
-//TODO editar tarefa
 
-TpGrafo* inicializa();
-TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa);
-TpGrafo* leitor(TpGrafo *grafo);
-void imprimeTarefa(TpTarefa* tarefa);
-void imprimeGrafo(TpGrafo* grafo);
-TpGrafo* removeTarefa(TpGrafo* grafo, int id);
-void salvaTarefa(FILE* file, TpTarefa* tarefa);
-void salvarEmArquivo(TpGrafo* Grafo);
+
+typedef struct Grafo TpGrafo;
+
+
+
+TpGrafo* inicializa(void);
+TpGrafo* adicionaVertice(TpGrafo*, TpTarefa* );
+TpGrafo* leitor(TpGrafo *);
+//void imprimeTarefa(TpTarefa* );
+//void imprimeGrafo(TpGrafo* );
+TpGrafo* removeTarefa(TpGrafo* , int );
+void salvaTarefa(FILE* , TpTarefa* );
+void salvarEmArquivo(TpGrafo* );

@@ -1,11 +1,11 @@
-teste: leitor.o
-	gcc -ansi -std=c99 -o teste teste.c leitor.o -I.
+testando2: 
+	gcc -g -ansi -std=c99 -o exe testando2.c leitor.c -lSDL -lSDL_ttf -I. -lncurses
 
-leitor.o:	
-	gcc -c -std=c99 leitor.c
+install:
+	sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libncurses-dev 
 
 run:
-	./leitor
+	./exe
 
 clean:
-	rm leitor
+	rm exe
