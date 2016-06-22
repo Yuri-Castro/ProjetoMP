@@ -7,7 +7,6 @@
 
 //TODO editar tarefa
 
-
 TpGrafo* inicializa(){
 	TpGrafo* grafo;
 	grafo = (TpGrafo*)malloc(sizeof(TpGrafo));
@@ -53,6 +52,7 @@ void imprimeGrafo(char* buffer, TpGrafo* grafo){
 	}
 }
 
+//TODO Consistencia de tarefas;
 TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
@@ -122,7 +122,6 @@ TpGrafo* leitor(TpGrafo *grafo){
 
 }
 
-
 //TODO pode ser feito uma forma de identificar se a tarefa foi excluida.
 TpGrafo* removeTarefa(TpGrafo* grafo, int id){
 
@@ -145,7 +144,6 @@ TpGrafo* removeTarefa(TpGrafo* grafo, int id){
 			}
 		}
 	}
-
 	return grafo;
 }
 
@@ -160,7 +158,7 @@ void salvaTarefa(FILE* file, TpTarefa* tarefa){
 
 void salvarEmArquivo(TpGrafo* grafo){
 
-	FILE* file = fopen("trf2", "w");
+	FILE* file = fopen("tarefas", "w");
 
 	if((grafo->vertices == NULL) || (file == NULL)){
 	
