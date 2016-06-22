@@ -42,7 +42,7 @@ void imprimeGrafo(char* buffer, TpGrafo* grafo){
 	if(grafo->vertices == NULL){
 		}else{
 			TpVertice* aux = grafo->vertices;
-			while(aux!= NULL){  
+			while(aux!= NULL){  // Para cada tarefa presente no grafo, adiciona ela ao buffer
 			add_Tarefa_Buffer(buffer, aux->tarefa);
 			aux = aux->prox;
 		}
@@ -55,19 +55,21 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
 	novo->tarefa = tarefa;
 
-	if(grafo->vertices == NULL){
+	//2 casos
+
+	if(grafo->vertices == NULL){//1 caso, o grafo esta vazio, entao temos que adicionar o primeiro elemento
 		grafo->vertices = novo;
 	
-	}else{
+	}else{//Segundo caso, o grafo nao esta vazio, adicionamos ele ao final da lista de vertices
 		TpVertice* aux = grafo->vertices;
 		
-		while(aux->prox != NULL){
-			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){//TODO imprimir mensagem na interface
+		while(aux->prox != NULL){//procura o fim da lista
+			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){ //verifica se o elemento e inconsistente(se ja existe algum com o mesmo id)
 				return grafo;
 			}
 			aux = aux->prox;
 		}
-		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){//TODO implimir mensagem na interface
+		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){														
 			return grafo;
 		}
 
@@ -125,18 +127,20 @@ TpGrafo* leitor(TpGrafo *grafo){
 
 }
 
-//TODO pode ser feito uma forma de identificar se a tarefa foi excluida.
+
 TpGrafo* removeTarefa(TpGrafo* grafo, int id){
 
-	if(grafo->vertices != NULL){
+	if(grafo->vertices != NULL){ //veridica se o grafo esta vazio
 		TpVertice* aux = grafo->vertices;
 		TpVertice* aux2;
 
-		if(aux->tarefa->id_tarefa == id){//tarefa a ser removida é a primeira
+		//se o grafo nao esta vazio temos 2 casos
+
+		if(aux->tarefa->id_tarefa == id){//1- tarefa a ser removida é a primeira
 			grafo->vertices = aux->prox;
 			free(aux);
 		
-		}else{
+		}else{//2- tarefa a ser removida nao e a primeira
 			for(; aux->prox != NULL; aux = aux->prox){
 				if(aux->prox->tarefa->id_tarefa == id){
 					aux2 = aux->prox;
