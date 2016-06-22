@@ -6,19 +6,6 @@
 #include "leitor.h"
 
 //TODO editar tarefa
-/*
-TpGrafo* inicializa();
-TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa);
-TpGrafo* leitor(TpGrafo *grafo);
-void imprimeTarefa(TpTarefa* tarefa);
-void imprimeGrafo(TpGrafo* grafo);
-TpGrafo* removeTarefa(TpGrafo* grafo, int id);
-void salvaTarefa(FILE* file, TpTarefa* tarefa);
-void salvarEmArquivo(TpGrafo* Grafo);
-
-*/
-
-
 
 
 TpGrafo* inicializa(){
@@ -35,58 +22,41 @@ TpGrafo* inicializa(){
 }
 
 void add_Tarefa_Buffer(char* buffer, TpTarefa* tarefa){
-  int i;
-  char auxiliar[100];
-  
-  sprintf(auxiliar, "%d %s %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, 
-  tarefa->duracao_tarefa, tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
+	int i;
+	char auxiliar[100];
 
-  strcat(buffer, auxiliar);
-  //printf("%s|||\n",buffer );
-  
+	sprintf(auxiliar, "%d %s %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, 
+	tarefa->duracao_tarefa, tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
 
+	strcat(buffer, auxiliar);
 
-  //printf("%d '%s' %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, tarefa->duracao_tarefa,tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
-  for (i = 0; i < tarefa->pre_requisitos_tarefa; i++){
-    
-    sprintf(auxiliar, " %d", tarefa->requisitos[i]);
-    strcat(buffer, auxiliar);
-  // printf( " %d", tarefa->requisitos[i]);
-  }
+	for (i = 0; i < tarefa->pre_requisitos_tarefa; i++){
 
-  sprintf(auxiliar, "\n");
-  strcat(buffer, auxiliar);
-  // printf("\n");
+		sprintf(auxiliar, " %d", tarefa->requisitos[i]);
+		strcat(buffer, auxiliar);
+	}
 
-  // printf("%s \n", buffer );
-  //desenha_texto(buffer,screen,i,j);
-   //return buffer;
+	sprintf(auxiliar, "\n");
+	strcat(buffer, auxiliar);
 }
 
 
 void imprimeGrafo(char* buffer, TpGrafo* grafo){
-  /* Funçao provisoria, arrumar depois*/
 
-  if(grafo->vertices == NULL){
-  }else{
-    TpVertice* aux = grafo->vertices;
-    while(aux!= NULL){  
-       add_Tarefa_Buffer(buffer, aux->tarefa);
-      aux = aux->prox;
-    }
-  }
-  //return buffer;
+	if(grafo->vertices == NULL){
+		}else{
+			TpVertice* aux = grafo->vertices;
+			while(aux!= NULL){  
+			add_Tarefa_Buffer(buffer, aux->tarefa);
+			aux = aux->prox;
+		}
+	}
 }
-
-
-
 
 TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
 	novo->tarefa = tarefa;
-
-	
 
 	if(grafo->vertices == NULL){
 		grafo->vertices = novo;
@@ -97,19 +67,14 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 			aux = aux->prox;
 
 		aux->prox = novo;
-
 	}
 
 	grafo->numero_vertices++;
 	grafo->tam_vetor_lista++;
-	/*if(tarefa.pre_requisitos_tarefa == 0) grafo.numero_origens++;*/
 
 	return grafo;
 }
 
-/**
-	TODO mudar o dado da estrutura grafo para ser um TpTarefa
-*/
 TpGrafo* leitor(TpGrafo *grafo){
 
 	FILE* file = fopen("tarefas", "r+");
@@ -207,6 +172,3 @@ void salvarEmArquivo(TpGrafo* grafo){
 
 	fclose(file);
 }
-
-
-

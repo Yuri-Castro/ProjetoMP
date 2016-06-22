@@ -14,14 +14,18 @@ DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))
 _OBJ = main.o GUI.o leitor.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -g -c -o $@ $< $(CFLAGS) $(LIBS)
 
 main: $(OBJ)
 	$(CC) -o $(NAME) $^ $(CFLAGS) $(LIBS)
+
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) -g -c -o $@ $< $(CFLAGS) $(LIBS)
+
 run:
 	./$(NAME)
-# install_libraries:
-#	sudo apt-get install ???
+
+install:
+	sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libncurses-dev
+
 clean:
 		rm -f $(ODIR)/*.o ~* core $(INCDIR)/~*
