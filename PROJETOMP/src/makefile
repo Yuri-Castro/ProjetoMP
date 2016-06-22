@@ -8,10 +8,10 @@ ODIR =obj
 LDIR =../lib
 LIBS = -lSDL -lSDL_ttf -lncurses
 
-_DEPS = GUI.h leitor.h
+_DEPS = GUI.h operaGrafo.h
 DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o GUI.o leitor.o 
+_OBJ = main.o GUI.o operaGrafo.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

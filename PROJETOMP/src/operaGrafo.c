@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL_ttf.h>
-#include "operaGrafo.h"
+#include "leitor.h"
 
 //TODO editar tarefa
 
