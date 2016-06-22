@@ -12,10 +12,7 @@ TpGrafo* inicializa(){
 	grafo = (TpGrafo*)malloc(sizeof(TpGrafo));
 
 	grafo->vertices = NULL;
-	//grafo->adjacencia = NULL;
 	grafo->numero_vertices = 0;
-	//grafo.numero_origens = 0;
-	grafo->tam_vetor_lista = 0;
 
 	return grafo;
 }
