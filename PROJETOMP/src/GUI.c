@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <SDL/SDL_ttf.h>
-#include "leitor.h"
+#include "operaGrafo.h"
 #include "GUI.h"
 
 
