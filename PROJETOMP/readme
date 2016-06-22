@@ -6,9 +6,9 @@ para executar digite make run
 /*TODO
 
 	Funçoes para editar tarefas(no arquivo e no grafo)
-	Verificador de coezao.
 	Fazer textes usando gteste
 
+	abrir suporte para as flags
 
 	Caminhos  com menor tempo das tarefas
 	tarefas completas com cor diferente

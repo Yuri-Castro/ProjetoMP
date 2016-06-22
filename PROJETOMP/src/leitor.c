@@ -65,14 +65,12 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 		TpVertice* aux = grafo->vertices;
 		
 		while(aux->prox != NULL){
-			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){
-				printf("impossivel adicionar %sm id repetido\n", tarefa->nome_tarefa);
+			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){//TODO imprimir mensagem na interface
 				return grafo;
 			}
 			aux = aux->prox;
 		}
-		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){
-			printf("impossivel adicionar %s, id repetido\n", tarefa->nome_tarefa);
+		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){//TODO implimir mensagem na interface
 			return grafo;
 		}
 
@@ -80,8 +78,6 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	}
 
 	grafo->numero_vertices++;
-	grafo->tam_vetor_lista++;
-
 	return grafo;
 }
 
