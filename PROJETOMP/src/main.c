@@ -8,6 +8,11 @@
 #include <curses.h>
 #include <time.h>
 
+int sair(TpGrafo* grafo){
+	salvarEmArquivo(grafo);
+	return 1;
+}
+
 int main(){
 	char tarefas[10000];
 	TpGrafo* grafo;
@@ -69,11 +74,11 @@ int main(){
 			y = event.button.y;
 
 			if (event.type == SDL_QUIT){
-				done = 1;
+				done = sair(grafo);
 			}
 
 			if (event.type == SDL_MOUSEBUTTONDOWN && (! Is_on(destino_botao_sair, button_width,button_height,x,y))  ) {// Se o usuário clicou
-				done = 1;
+				done = sair(grafo);
 			}
 
 			if (event.type == SDL_MOUSEBUTTONDOWN && (! Is_on(destino_botao_remover, button_width,button_height,x,y))  ) {// Se o usuário clicou

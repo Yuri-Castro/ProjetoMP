@@ -19,7 +19,7 @@ main: $(OBJ)
 	$(CC) -o $(NAME) $^ $(CFLAGS) $(LIBS)
 
 $(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -g -c -o $@ $< $(CFLAGS) $(LIBS)
+	$(CC) -g -c -o $@ $< $(CFLAGS) $(LIBS) -std=c99
 
 run:
 	./$(NAME)
