@@ -26,7 +26,7 @@ int main(){
 
 
 	grafo = inicializa(); 
-	grafo = leitor(grafo);
+	grafo = leitor(grafo, "tarefas");
 	salvarEmArquivo(grafo);
 
 	destino_botao_remover = set_button_position(destino_botao_remover, 280,170);
