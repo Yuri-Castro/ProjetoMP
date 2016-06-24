@@ -1,0 +1,19 @@
+para compilar abra o diretorio no local do arquivo leitor e digite make
+para executar digite make run
+
+
+
+/*TODO
+
+	Funçoes para editar tarefas(no arquivo e no grafo)
+	Fazer textes usando gteste
+
+	abrir suporte para as flags
+
+	Caminhos  com menor tempo das tarefas
+	tarefas completas com cor diferente
+	dado um tempo quais tarefas foram executadas
+
+	AVALIADOR DE TAREFAS
+
+*/
