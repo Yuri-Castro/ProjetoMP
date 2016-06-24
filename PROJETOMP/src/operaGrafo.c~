@@ -224,6 +224,8 @@ int menu(){
 		printw(" OPCAO => ");
 		tecla = getch();
 
+	
+		
 		clear();
 
 	} while(tecla != enter);

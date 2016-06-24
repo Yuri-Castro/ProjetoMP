@@ -174,7 +174,7 @@ void add_Tarefa_Buffer(char* ,TpTarefa*);
 *	O grafo permanecera inalterado
 *	o char* contera todos os dados do grafo
 **************************************************************************/
-void imprimeGrafo( TpGrafo* );
+void imprimeGrafo(char* , TpGrafo* );
 
 /***************************************************************************
 *Função: 
