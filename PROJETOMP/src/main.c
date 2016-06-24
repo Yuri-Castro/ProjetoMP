@@ -9,7 +9,7 @@
 #include <time.h>
 
 int sair(TpGrafo* grafo){
-	salvarEmArquivo(grafo);
+	salvarEmArquivo(grafo, "tarefas");
 	return 1;
 }
 
@@ -27,7 +27,7 @@ int main(){
 
 	grafo = inicializa(); 
 	grafo = leitor(grafo, "tarefas");
-	salvarEmArquivo(grafo);
+	salvarEmArquivo(grafo, "tarefas");
 
 	destino_botao_remover = set_button_position(destino_botao_remover, 280,170);
 	destino_botao_adicionar = set_button_position(destino_botao_adicionar, 280,220);

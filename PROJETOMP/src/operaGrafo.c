@@ -7,49 +7,6 @@
 #include "operaGrafo.h"
 
 //TODO editar tarefa
-
-
-int menu(){
-	
-
-	int opcao = 0, tecla, cima = 259, baixo = 258, enter =10;
-		
-	
-	clear();
-	
-	do{
-		
-		
-
-		printw("Oque deseja modificar na tarefa?  \n");
-		(opcao == 0) ? printw("->") : printw("  ");
-		printw(" ID da tarefa\n");
-		(opcao == 1) ? printw("->") : printw("  ");
-		printw(" Nome da tarefa\n");
-		(opcao == 2) ? printw("->") : printw("  ");
-		printw(" Duracao da Tarefa\n");
-		(opcao == 3) ? printw("->") : printw("  ");
-		printw(" Horario de inicio da Tarefa\n");
-		(opcao == 4) ? printw("->") : printw("  ");
-		printw(" Pre requisitos da Tarefa\n");
-		
-		
-		tecla = getch();
-	
-		
-		if(tecla == baixo)
-			(opcao == 4) ? opcao = 0: opcao++;
-		if(tecla == cima)
-			(opcao == 0) ? opcao = 4: opcao--;
-		
-		clear();
-
-	} while(tecla != enter);
-	
-
-	return opcao;
-}
-
 TpGrafo* inicializa(){
 	TpGrafo* grafo;
 	grafo = (TpGrafo*)malloc(sizeof(TpGrafo));
@@ -63,6 +20,9 @@ TpGrafo* inicializa(){
 void add_Tarefa_Buffer(char* buffer, TpTarefa* tarefa){
 	int i;
 	char auxiliar[100];
+
+	for(int i = 0; i<sizeof(auxiliar)/sizeof(char); i++)
+		auxiliar[i]= '\0';
 
 	sprintf(auxiliar, "%d %s %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, 
 	tarefa->duracao_tarefa, tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
@@ -81,6 +41,8 @@ void add_Tarefa_Buffer(char* buffer, TpTarefa* tarefa){
 
 
 void imprimeGrafo(char* buffer, TpGrafo* grafo){
+	for(int i = 0; i<sizeof(buffer)/sizeof(char); i++)
+		buffer[i]= '\0';
 
 	if(grafo->vertices == NULL){
 		}else{
@@ -97,6 +59,9 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
 	novo->tarefa = tarefa;
+	novo->prox = NULL;
+
+	int erro = 0;
 
 	//2 casos
 
@@ -108,56 +73,19 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 		
 		while(aux->prox != NULL){//procura o fim da lista
 			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){ //verifica se o elemento e inconsistente(se ja existe algum com o mesmo id)
-				return grafo;
+				erro =1;
 			}
 			aux = aux->prox;
 		}
 		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){														
-			return grafo;
+			erro = 1;
 		}
 
-		aux->prox = novo;
+		if(!erro)
+			aux->prox = novo;
 	}
 
 	grafo->numero_vertices++;
-	return grafo;
-}
-TpGrafo* adicionaTarefa(TpGrafo* grafo){
-	TpTarefa* novo;
-	char auxiliar[100];
-
-	printw("Qual o novo ID?:\n ");
-	scanw("%d", &novo->id_tarefa);
-	printf("teste");
-	printw("Qual o novo nome:\n ");
-	scanw("%d", &auxiliar);
-	strcpy(novo->nome_tarefa, auxiliar);
-	
-	
-	printw("Qual a duracao da tarefa:\n ");
-	scanw("%d", &novo->duracao_tarefa);
-	
-	printw("Qual o horario de inicio da tarefa?:\n ");
-	scanw("%d", &novo->inicio_min_tarefa);
-	
-	printw("A tarefa foi executada? 1/0:\n ");
-	scanw("%d", &novo->tarefa_executada);
-	
-	printw("Qual a quantidade de pre requisitos da tarefa?:\n ");
-	scanw("%d", &novo->pre_requisitos_tarefa);
-	
-
-	
-
-	if(novo->pre_requisitos_tarefa != 0)
-		novo->requisitos = (int*)malloc(novo->pre_requisitos_tarefa*sizeof(int));
-
-	for(int i=0; i<novo->pre_requisitos_tarefa; i++){
-		printw("Qual o %d-esimo pre requisito da tarefa %s\n",i ,novo->nome_tarefa);
-		scanw("%d", &novo->requisitos[i]);
-	}
-
-	grafo = adicionaVertice(grafo, novo);
 	return grafo;
 }
 
@@ -244,9 +172,9 @@ void salvaTarefa(FILE* file, TpTarefa* tarefa){
 	fprintf(file, "\n");	
 }
 
-void salvarEmArquivo(TpGrafo* grafo){
+void salvarEmArquivo(TpGrafo* grafo, char* nomeArquivo){
 
-	FILE* file = fopen("tarefas", "w");
+	FILE* file = fopen(nomeArquivo, "w");
 
 	if((grafo->vertices == NULL) || (file == NULL)){
 	
@@ -258,6 +186,84 @@ void salvarEmArquivo(TpGrafo* grafo){
 
 	fclose(file);
 }
+
+int menu(){
+
+	int opcao = 0, tecla, cima = 259, baixo = 258, enter =10;
+	clear();
+	
+	do{
+		printw("Oque deseja modificar na tarefa?  \n");
+		(opcao == 0) ? printw("->") : printw("  ");
+		printw(" ID da tarefa\n");
+		(opcao == 1) ? printw("->") : printw("  ");
+		printw(" Nome da tarefa\n");
+		(opcao == 2) ? printw("->") : printw("  ");
+		printw(" Duracao da Tarefa\n");
+		(opcao == 3) ? printw("->") : printw("  ");
+		printw(" Horario de inicio da Tarefa\n");
+		(opcao == 4) ? printw("->") : printw("  ");
+		printw(" Pre requisitos da Tarefa\n");
+		(opcao == 5) ? printw("->") : printw("  ");
+		printw(" Tarefa executada:\n");
+		
+		
+		tecla = getch();
+	
+		
+		if(tecla == baixo)
+			(opcao == 5) ? opcao = 0: opcao++;
+		if(tecla == cima)
+			(opcao == 0) ? opcao = 5: opcao--;
+		
+		clear();
+
+	} while(tecla != enter);
+	
+
+	return opcao;
+}
+
+TpGrafo* adicionaTarefa(TpGrafo* grafo){
+	TpTarefa* novo;
+	novo = (TpTarefa*)malloc(sizeof(TpTarefa));
+	char auxiliar[100];
+
+	printw("Qual o novo ID?:\n ");
+	scanw("%d", &novo->id_tarefa);
+	printw("Qual o novo nome:\n ");
+	scanw("%[^\n]", auxiliar);
+	strcpy(novo->nome_tarefa, auxiliar);
+	
+	
+	printw("Qual a duracao da tarefa:\n ");
+	scanw("%d", &novo->duracao_tarefa);
+	
+	printw("Qual o horario de inicio da tarefa?:\n ");
+	scanw("%d", &novo->inicio_min_tarefa);
+	
+	printw("A tarefa foi executada? \n ");
+	printw("1- sim \n ");
+	printw("0- nao \n ");
+	scanw("%d", &novo->tarefa_executada);
+	
+	printw("Qual a quantidade de pre requisitos da tarefa?:\n ");
+	scanw("%d", &novo->pre_requisitos_tarefa);
+	
+	if(novo->pre_requisitos_tarefa != 0)
+		novo->requisitos = (int*)malloc(novo->pre_requisitos_tarefa*sizeof(int));
+
+	for(int i=0; i<novo->pre_requisitos_tarefa; i++){
+		printw("Qual o %d-esimo pre requisito da tarefa %s\n",i ,novo->nome_tarefa);
+		scanw("%d", &novo->requisitos[i]);
+	}
+
+	printf("NUMERO%d\n", novo->inicio_min_tarefa);
+
+	grafo = adicionaVertice(grafo, novo);
+	return grafo;
+}
+
 TpGrafo* editaTarefa(TpGrafo* grafo, int id){
 	
 	
@@ -283,20 +289,27 @@ TpGrafo* editaTarefa(TpGrafo* grafo, int id){
 				case 1:
 					printw("Qual o novo nome:\n ");
 					scanw("%s", &auxiliar2);
-						strcpy(aux->tarefa->nome_tarefa, auxiliar2);
+					strcpy(aux->tarefa->nome_tarefa, auxiliar2);
 					break;
 					
 				case 2:
-					printw("Qual o  novo inicio da tarefa:\n ");
+					printw("Qual a nova duracao:\n ");
 					scanw("%d", &auxiliar);
-						aux->tarefa->duracao_tarefa = auxiliar;
+					aux->tarefa->duracao_tarefa = auxiliar;
 				
 				case 3: 
-					printw("Qual o novo pre requisito da tarefa?:\n ");
+					printw("Qual o novo horario inicio:\n ");
 					scanw("%d", &auxiliar);
-					aux->tarefa->pre_requisitos_tarefa = auxiliar;
+					aux->tarefa->inicio_min_tarefa = auxiliar;
 					break;
-					
+				
+
+				case 5: 
+					printw("Tarefa executada:\n ");
+					scanw("%d", &auxiliar);
+					aux->tarefa->tarefa_executada = auxiliar;
+					break;
+
 				case 4: 
 					printw("Qual a quantidade de pre requisitos da tarefa?:\n ");
 					scanw("%d", &auxiliar);
@@ -340,9 +353,15 @@ TpGrafo* editaTarefa(TpGrafo* grafo, int id){
 							aux->tarefa->duracao_tarefa = auxiliar;
 							break;
 						case 3: 
-							printw("Qual o horario de inicio da tarefa?:\n ");
+							printw("Qual o novo horario inicio:\n ");
 							scanw("%d", &auxiliar);
-							aux->tarefa->pre_requisitos_tarefa = auxiliar;
+							aux->tarefa->inicio_min_tarefa = auxiliar;
+							break;
+
+						case 5: 
+							printw("Tarefa executada:\n ");
+							scanw("%d", &auxiliar);
+							aux->tarefa->tarefa_executada = auxiliar;
 							break;
 						case 4: 
 							printw("Qual a quantidade de pre requisitos da tarefa?:\n ");
