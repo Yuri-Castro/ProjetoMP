@@ -54,6 +54,7 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
 	novo->tarefa = tarefa;
+	novo->prox = NULL;
 
 	//2 casos
 

@@ -34,6 +34,10 @@ TEST(TpGrafo, testaInicializa){
 TEST(TpGrafo, testaAdicionaVertice){
 
   TpGrafo* grafo = inicializa();
+
+  ASSERT_EQ(grafo->vertices == NULL, 1);
+  EXPECT_EQ(grafo->numero_vertices, 0);
+  
   TpTarefa* tarefa1 = (TpTarefa*)malloc(sizeof(TpTarefa));
 
   tarefa1->id_tarefa = 100;
@@ -54,26 +58,31 @@ TEST(TpGrafo, testaAdicionaVertice){
   tarefa2->requisitos = (int*)malloc(2*sizeof(int));
   tarefa2->requisitos[0] = 100;
 
+  if(grafo->vertices == NULL)
+    grafo->vertices = NULL;
+
+
   grafo = adicionaVertice(grafo, tarefa1);
   grafo = adicionaVertice(grafo, tarefa2);
 
-  EXPECT_EQ(grafo->vertices->tarefa->id_tarefa, 100);
-  EXPECT_STREQ(grafo->vertices->tarefa->nome_tarefa, "primeira tarefa");  
-  EXPECT_EQ(grafo->vertices->tarefa->tarefa_executada, 0);
-  EXPECT_EQ(grafo->vertices->tarefa->duracao_tarefa, 3);
-  EXPECT_EQ(grafo->vertices->tarefa->inicio_min_tarefa, 0);
-  EXPECT_EQ(grafo->vertices->tarefa->pre_requisitos_tarefa, 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->id_tarefa == 100);
+  EXPECT_TRUE(strcmp(grafo->vertices->tarefa->nome_tarefa, "primeira tarefa") == 0);  
+  EXPECT_TRUE(grafo->vertices->tarefa->tarefa_executada == 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->duracao_tarefa == 3);
+  EXPECT_TRUE(grafo->vertices->tarefa->inicio_min_tarefa == 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->pre_requisitos_tarefa == 0);
 
 
-  EXPECT_EQ(grafo->vertices->prox->tarefa->id_tarefa, 102);
-  EXPECT_STREQ(grafo->vertices->prox->tarefa->nome_tarefa, "segunda tarefa");  
-  EXPECT_EQ(grafo->vertices->prox->tarefa->tarefa_executada, 1);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->duracao_tarefa, 2);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->inicio_min_tarefa, 3);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->pre_requisitos_tarefa, 1);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->requisitos[1], 10);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->id_tarefa == 102);
+  EXPECT_TRUE(strcmp(grafo->vertices->prox->tarefa->nome_tarefa, "segunda tarefa") == 0);  
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->tarefa_executada == 1);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->duracao_tarefa == 2);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->inicio_min_tarefa == 3);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->pre_requisitos_tarefa == 1);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->requisitos[0] == 100);
 
-  EXPECT_EQ(grafo->vertices->prox->prox == NULL, 1);
+  EXPECT_TRUE(grafo->vertices->prox->prox == NULL);
+  
 }
 
 
@@ -89,24 +98,25 @@ TEST(TpGrafo, testaLeitor){
   TpGrafo* grafo = inicializa();
   grafo = leitor(grafo, file);
 
-  EXPECT_EQ(grafo->vertices->tarefa->id_tarefa, 100);
-  EXPECT_STREQ(grafo->vertices->tarefa->nome_tarefa, "primeira tarefa");  
-  EXPECT_EQ(grafo->vertices->tarefa->tarefa_executada, 0);
-  EXPECT_EQ(grafo->vertices->tarefa->duracao_tarefa, 3);
-  EXPECT_EQ(grafo->vertices->tarefa->inicio_min_tarefa, 0);
-  EXPECT_EQ(grafo->vertices->tarefa->pre_requisitos_tarefa, 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->id_tarefa == 100);
+  EXPECT_TRUE(strcmp(grafo->vertices->tarefa->nome_tarefa, "primeira tarefa") == 0);  
+  EXPECT_TRUE(grafo->vertices->tarefa->tarefa_executada == 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->duracao_tarefa == 3);
+  EXPECT_TRUE(grafo->vertices->tarefa->inicio_min_tarefa == 0);
+  EXPECT_TRUE(grafo->vertices->tarefa->pre_requisitos_tarefa == 0);
 
 
-  EXPECT_EQ(grafo->vertices->prox->tarefa->id_tarefa, 102);
-  EXPECT_STREQ(grafo->vertices->prox->tarefa->nome_tarefa, "segunda tarefa");  
-  EXPECT_EQ(grafo->vertices->prox->tarefa->tarefa_executada, 0);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->duracao_tarefa, 2);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->inicio_min_tarefa, 3);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->pre_requisitos_tarefa, 2);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->requisitos[0], 100);
-  EXPECT_EQ(grafo->vertices->prox->tarefa->requisitos[1], 101);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->id_tarefa == 102);
+  EXPECT_TRUE(strcmp(grafo->vertices->prox->tarefa->nome_tarefa, "segunda tarefa") == 0);  
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->tarefa_executada == 0);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->duracao_tarefa == 2);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->inicio_min_tarefa == 3);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->pre_requisitos_tarefa == 2);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->requisitos[0] == 100);
+  EXPECT_TRUE(grafo->vertices->prox->tarefa->requisitos[1] == 101);
 
-  EXPECT_EQ(grafo->vertices->prox->prox == NULL, 1);
+  EXPECT_TRUE(grafo->vertices->prox->prox == NULL);
+  
 }
 
 

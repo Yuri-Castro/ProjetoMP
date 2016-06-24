@@ -27,11 +27,5 @@ run:
 install:
 	sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libncurses-dev
 
-$(ODIR)/%.o: %.cpp $(DEPS)
-	g++ -g -c -o $@ $< $(CFLAGS) $(LIBS) -std=c99
-
-teste: 	
-	g++ ./testes.cpp obj/operaGrafo.o /usr/lib/libgtest.a -o testa_grafo.bin -fPIC -O2 -g -Wall -lpthread -I../include
-
 clean:
 		rm -f $(ODIR)/*.o ~* core $(INCDIR)/~*
