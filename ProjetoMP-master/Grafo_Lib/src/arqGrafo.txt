@@ -1,5 +1,0 @@
-A, ABC, B, ABCD
-A, ABCD
-A, B, 4.0
-A, ABCD, 1.0
-B, ABC, 2.0
