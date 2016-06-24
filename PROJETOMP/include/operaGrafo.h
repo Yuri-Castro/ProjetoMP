@@ -16,6 +16,7 @@ struct Tarefa{
 	int duracao_tarefa;
 	int inicio_min_tarefa;
 	int pre_requisitos_tarefa;
+	int tarefa_fim;
 	int *requisitos;
 };
 typedef struct Tarefa TpTarefa;

@@ -79,6 +79,7 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	
 	TpVertice* novo = (TpVertice*)malloc(sizeof(TpVertice));
 	novo->tarefa = tarefa;
+	novo->tarefa->tarefa_fim = novo->tarefa->inicio_min_tarefa + novo->tarefa->duracao;
 	novo->prox = NULL;
 
 	int erro = 0;
@@ -207,6 +208,11 @@ void salvarEmArquivo(TpGrafo* grafo, char* nomeArquivo){
 	fclose(file);
 }
 
+TpGrafo* ordenaTarefas (TpGrafo*){
+
+
+}
+
 int menu(){
 
 	int opcao = 0, tecla, cima = 259, baixo = 258, enter =10;
@@ -273,8 +279,6 @@ TpGrafo* adicionaTarefa(TpGrafo* grafo){
 }
 
 TpGrafo* editaTarefa(TpGrafo* grafo, int id){
-	
-	
 
 	if(grafo->vertices != NULL){ //veridica se o grafo esta vazio
 		TpVertice* aux = grafo->vertices;
@@ -304,11 +308,14 @@ TpGrafo* editaTarefa(TpGrafo* grafo, int id){
 					printw("Qual a nova duracao:\n ");
 					scanw("%d", &auxiliar);
 					aux->tarefa->duracao_tarefa = auxiliar;
+					aux->tarefa->tarefa_fim = aux->tarefa->inicio_min_tarefa + aux->tarefa->duracao;
+
 				
 				case 3: 
 					printw("Qual o novo horario inicio:\n ");
 					scanw("%d", &auxiliar);
 					aux->tarefa->inicio_min_tarefa = auxiliar;
+					aux->tarefa->tarefa_fim = aux->tarefa->inicio_min_tarefa + aux->tarefa->duracao;
 					break;
 				
 
@@ -359,11 +366,13 @@ TpGrafo* editaTarefa(TpGrafo* grafo, int id){
 							printw("Qual a duracao da tarefa:\n ");
 							scanw("%d", &auxiliar);
 							aux->tarefa->duracao_tarefa = auxiliar;
+							aux->tarefa->tarefa_fim = aux->tarefa->inicio_min_tarefa + aux->tarefa->duracao;
 							break;
 						case 3: 
 							printw("Qual o novo horario inicio:\n ");
 							scanw("%d", &auxiliar);
 							aux->tarefa->inicio_min_tarefa = auxiliar;
+							aux->tarefa->tarefa_fim = aux->tarefa->inicio_min_tarefa + aux->tarefa->duracao;
 							break;
 
 						case 5: 
