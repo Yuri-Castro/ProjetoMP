@@ -9,7 +9,7 @@
 #include <time.h>
 
 int sair(TpGrafo* grafo){
-	salvarEmArquivo(grafo);
+	salvarEmArquivo(grafo, "tarefas");
 	return 1;
 }
 
@@ -74,7 +74,7 @@ int main(){
 			y = event.button.y;
 
 			if (event.type == SDL_QUIT){
-				done = sair(grafo);
+				done = -1;
 			}
 
 			if (event.type == SDL_MOUSEBUTTONDOWN && (! Is_on(destino_botao_sair, button_width,button_height,x,y))  ) {// Se o usuário clicou

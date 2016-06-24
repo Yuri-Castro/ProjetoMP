@@ -150,7 +150,7 @@ TpGrafo* leitor(TpGrafo *, char *);
 *Assertiva de saída
 *	o conteudo da tarefa passada sera salvo na string
 **************************************************************************/
-void imprimeTarefa(char* ,TpTarefa* );
+void add_Tarefa_Buffer(char* ,TpTarefa*);
 
 /***************************************************************************
 *Função: 
@@ -249,4 +249,4 @@ void salvaTarefa(FILE* , TpTarefa* );
 *	o ponteiro no arquivo estara apontando para o inicio de uma nova linha no final do arquivo
 *	os dados no arquivo serão os mesmos do grafo no fim da execução
 **************************************************************************/
-void salvarEmArquivo(TpGrafo* );
+void salvarEmArquivo(TpGrafo*, char* );

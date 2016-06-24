@@ -21,6 +21,9 @@ void add_Tarefa_Buffer(char* buffer, TpTarefa* tarefa){
 	int i;
 	char auxiliar[100];
 
+	for(int i = 0; i<sizeof(auxiliar)/sizeof(char); i++)
+		auxiliar[i]= '\0';
+
 	sprintf(auxiliar, "%d %s %d %d %d %d", tarefa->id_tarefa, tarefa->nome_tarefa, tarefa->tarefa_executada, 
 	tarefa->duracao_tarefa, tarefa->inicio_min_tarefa, tarefa->pre_requisitos_tarefa);
 
@@ -38,6 +41,8 @@ void add_Tarefa_Buffer(char* buffer, TpTarefa* tarefa){
 
 
 void imprimeGrafo(char* buffer, TpGrafo* grafo){
+	for(int i = 0; i<sizeof(buffer)/sizeof(char); i++)
+		buffer[i]= '\0';
 
 	if(grafo->vertices == NULL){
 		}else{
@@ -56,6 +61,8 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 	novo->tarefa = tarefa;
 	novo->prox = NULL;
 
+	int erro = 0;
+
 	//2 casos
 
 	if(grafo->vertices == NULL){//1 caso, o grafo esta vazio, entao temos que adicionar o primeiro elemento
@@ -66,15 +73,16 @@ TpGrafo* adicionaVertice(TpGrafo* grafo, TpTarefa* tarefa){
 		
 		while(aux->prox != NULL){//procura o fim da lista
 			if(aux->tarefa->id_tarefa == tarefa->id_tarefa){ //verifica se o elemento e inconsistente(se ja existe algum com o mesmo id)
-				return grafo;
+				erro =1;
 			}
 			aux = aux->prox;
 		}
 		if(aux->tarefa->id_tarefa == tarefa->id_tarefa){														
-			return grafo;
+			erro = 1;
 		}
 
-		aux->prox = novo;
+		if(!erro)
+			aux->prox = novo;
 	}
 
 	grafo->numero_vertices++;
@@ -164,9 +172,9 @@ void salvaTarefa(FILE* file, TpTarefa* tarefa){
 	fprintf(file, "\n");	
 }
 
-void salvarEmArquivo(TpGrafo* grafo){
+void salvarEmArquivo(TpGrafo* grafo, char* nomeArquivo){
 
-	FILE* file = fopen("tarefas", "w");
+	FILE* file = fopen(nomeArquivo, "w");
 
 	if((grafo->vertices == NULL) || (file == NULL)){
 	
